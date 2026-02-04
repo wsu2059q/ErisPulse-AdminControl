@@ -1,0 +1,16 @@
+[project]
+name = "ErisPulse-AdminControl"
+version = "1.0.0"
+description = "ErisPulse 管理控制模块 - 提供框架管理和命令执行功能"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [ { name = "wsu2059q", email = "wsu2059@qq.com" } ]
+dependencies = []
+
+[project.urls]
+"homepage" = "https://github.com/wsu2059q/ErisPulse-AdminControl"
+"repository" = "https://github.com/wsu2059q/ErisPulse-AdminControl"
+
+[project.entry-points]
+"erispulse.module" = { "AdminControl" = "ErisPulse_AdminControl.Core:Main" }
