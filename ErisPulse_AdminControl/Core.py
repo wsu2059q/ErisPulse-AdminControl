@@ -114,29 +114,25 @@ class Main(BaseModule):
         loaded = self.sdk.module.list_loaded()
         
         lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + "  已注册模块列表".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("├" + "─" * 58 + "┤")
+        lines.append("已注册模块列表")
+        lines.append("━━━━━")
+        lines.append("")
         
         for module_name in registered:
             module_info = finder.get_module_info(module_name)
             version = module_info.get("version", "未知") if module_info else "未知"
             package = module_info.get("package", "") if module_info else ""
             is_loaded = module_name in loaded
-            status = "[运行中]" if is_loaded else "[未加载]"
+            status = "运行中" if is_loaded else "未加载"
             
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│  模块: " + module_name.ljust(52) + "│")
-            lines.append("│  版本: " + version.ljust(52) + "│")
-            lines.append("│  包:   " + (package if package else "本地").ljust(52) + "│")
-            lines.append("│  状态: " + status.ljust(52) + "│")
+            lines.append(f"{module_name}")
+            lines.append(f"  版本: {version}")
+            lines.append(f"  包:   {package if package else '本地'}")
+            lines.append(f"  状态: {status}")
+            lines.append("")
         
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + f"  总计: {len(registered)} 个已注册模块".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
+        lines.append("━━━━━")
+        lines.append(f"总计: {len(registered)} 个已注册模块")
         
         await event.reply("\n".join(lines))
 
@@ -148,29 +144,25 @@ class Main(BaseModule):
         items = self.sdk.adapter.list_items()
         
         lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + "  已注册适配器列表".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("├" + "─" * 58 + "┤")
+        lines.append("已注册适配器列表")
+        lines.append("━━━━━")
+        lines.append("")
         
         for adapter_name in registered:
             adapter_info = finder.get_adapter_info(adapter_name)
             version = adapter_info.get("version", "未知") if adapter_info else "未知"
             package = adapter_info.get("package", "") if adapter_info else ""
             is_enabled = items.get(adapter_name, False)
-            status = "[已启用]" if is_enabled else "[已禁用]"
+            status = "已启用" if is_enabled else "已禁用"
             
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│  适配器: " + adapter_name.ljust(50) + "│")
-            lines.append("│  版本:   " + version.ljust(50) + "│")
-            lines.append("│  包:     " + (package if package else "本地").ljust(50) + "│")
-            lines.append("│  状态:   " + status.ljust(50) + "│")
+            lines.append(f"{adapter_name}")
+            lines.append(f"  版本: {version}")
+            lines.append(f"  包:   {package if package else '本地'}")
+            lines.append(f"  状态: {status}")
+            lines.append("")
         
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + f"  总计: {len(registered)} 个已注册适配器".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
+        lines.append("━━━━━")
+        lines.append(f"总计: {len(registered)} 个已注册适配器")
         
         await event.reply("\n".join(lines))
 
@@ -188,108 +180,64 @@ class Main(BaseModule):
         enabled_adapters = [k for k, v in adapter_items.items() if v]
         
         lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + "  ErisPulse 组件概览".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("├" + "─" * 58 + "┤")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│  模块".rjust(40) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│    已注册: " + f"{len(modules)} 个".ljust(42) + "│")
-        lines.append("│    已加载: " + f"{len(loaded_modules)} 个".ljust(42) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│  适配器".rjust(40) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│    已注册: " + f"{len(adapters)} 个".ljust(42) + "│")
-        lines.append("│    已启用: " + f"{len(enabled_adapters)} 个".ljust(42) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("├" + "─" * 58 + "┤")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + "  已加载模块".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
+        lines.append("ErisPulse 组件概览")
+        lines.append("━━━━━")
+        lines.append("")
+        lines.append("模块")
+        lines.append(f"  已注册: {len(modules)} 个")
+        lines.append(f"  已加载: {len(loaded_modules)} 个")
+        lines.append("")
+        lines.append("适配器")
+        lines.append(f"  已注册: {len(adapters)} 个")
+        lines.append(f"  已启用: {len(enabled_adapters)} 个")
+        lines.append("")
+        lines.append("━━━━━")
+        lines.append("")
+        lines.append("已加载模块")
         
         for module in loaded_modules:
-            lines.append("│    [运行] " + module.ljust(48) + "│")
+            lines.append(f"  运行: {module}")
         
         if not loaded_modules:
-            lines.append("│    (无)".center(58) + "│")
+            lines.append("  (无)")
         
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + "  已启用适配器".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
+        lines.append("")
+        lines.append("已启用适配器")
         
         for adapter_name in enabled_adapters:
-            lines.append("│    [启用] " + adapter_name.ljust(48) + "│")
+            lines.append(f"  启用: {adapter_name}")
         
         if not enabled_adapters:
-            lines.append("│    (无)".center(58) + "│")
-        
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
+            lines.append("  (无)")
         
         await event.reply("\n".join(lines))
 
     # ========== 框架管理命令实现 ==========
 
     async def _restart_framework(self, event):
-        lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + "  正在重启 ErisPulse 框架...".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
-        await event.reply("\n".join(lines))
+        await event.reply("正在重启 ErisPulse 框架...")
         
         from ErisPulse import restart
         try:
             await restart()
         except Exception as e:
             self.logger.error(f"重启框架时出错: {e}")
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 重启失败".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  {str(e)}".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"错误: 重启失败\n{str(e)}")
 
     async def _reload_module(self, event):
         """重新加载指定模块"""
         args = event.get_command_args()
         if not args:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 请指定模块名称".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  用法: /reload-module <模块名>".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply("错误: 请指定模块名称\n用法: /reload-module <模块名>")
             return
         
         module_name = args[0]
         
         if not self.sdk.module.is_loaded(module_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [未加载] 模块 '{module_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"未加载: 模块 '{module_name}'")
             return
         
-        lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + f"  正在重新加载模块 '{module_name}'...".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
-        await event.reply("\n".join(lines))
+        await event.reply(f"正在重新加载模块 '{module_name}'...")
         
         try:
             # 先卸载
@@ -298,408 +246,158 @@ class Main(BaseModule):
                 # 再加载
                 success = await self.sdk.module.load(module_name)
                 if success:
-                    lines = []
-                    lines.append("┌" + "─" * 58 + "┐")
-                    lines.append("│" + " " * 58 + "│")
-                    lines.append("│" + f"  [成功] 模块 '{module_name}' 已重新加载".center(58) + "│")
-                    lines.append("│" + " " * 58 + "│")
-                    lines.append("└" + "─" * 58 + "┘")
-                    await event.reply("\n".join(lines))
+                    await event.reply(f"成功: 模块 '{module_name}' 已重新加载")
                 else:
-                    lines = []
-                    lines.append("┌" + "─" * 58 + "┐")
-                    lines.append("│" + " " * 58 + "│")
-                    lines.append("│" + f"  [失败] 模块 '{module_name}' 加载失败".center(58) + "│")
-                    lines.append("│" + " " * 58 + "│")
-                    lines.append("└" + "─" * 58 + "┘")
-                    await event.reply("\n".join(lines))
+                    await event.reply(f"失败: 模块 '{module_name}' 加载失败")
             else:
-                lines = []
-                lines.append("┌" + "─" * 58 + "┐")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("│" + f"  [失败] 模块 '{module_name}' 卸载失败".center(58) + "│")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("└" + "─" * 58 + "┘")
-                await event.reply("\n".join(lines))
+                await event.reply(f"失败: 模块 '{module_name}' 卸载失败")
         except Exception as e:
             self.logger.error(f"重新加载模块 {module_name} 时出错: {e}")
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [错误] {str(e)}".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"错误: {str(e)}")
 
     async def _load_module(self, event):
         args = event.get_command_args()
         if not args:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 请指定模块名称".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  用法: /load-module <模块名>".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply("错误: 请指定模块名称\n用法: /load-module <模块名>")
             return
         
         module_name = args[0]
         
         if self.sdk.module.is_loaded(module_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [已加载] 模块 '{module_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"已加载: 模块 '{module_name}'")
             return
         
         if not self.sdk.module.exists(module_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [未找到] 模块 '{module_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"未找到: 模块 '{module_name}'")
             return
         
-        lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + f"  正在加载模块 '{module_name}'...".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
-        await event.reply("\n".join(lines))
+        await event.reply(f"正在加载模块 '{module_name}'...")
         
         try:
             success = await self.sdk.module.load(module_name)
             if success:
-                lines = []
-                lines.append("┌" + "─" * 58 + "┐")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("│" + f"  [成功] 模块 '{module_name}' 已加载".center(58) + "│")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("└" + "─" * 58 + "┘")
-                await event.reply("\n".join(lines))
+                await event.reply(f"成功: 模块 '{module_name}' 已加载")
             else:
-                lines = []
-                lines.append("┌" + "─" * 58 + "┐")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("│" + f"  [失败] 模块 '{module_name}' 加载失败".center(58) + "│")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("└" + "─" * 58 + "┘")
-                await event.reply("\n".join(lines))
+                await event.reply(f"失败: 模块 '{module_name}' 加载失败")
         except Exception as e:
             self.logger.error(f"加载模块 {module_name} 时出错: {e}")
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [错误] {str(e)}".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"错误: {str(e)}")
 
     async def _unload_module(self, event):
         args = event.get_command_args()
         if not args:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 请指定模块名称".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  用法: /unload-module <模块名>".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply("错误: 请指定模块名称\n用法: /unload-module <模块名>")
             return
         
         module_name = args[0]
         
         if not self.sdk.module.is_loaded(module_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [未加载] 模块 '{module_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"未加载: 模块 '{module_name}'")
             return
         
-        lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + f"  正在卸载模块 '{module_name}'...".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
-        await event.reply("\n".join(lines))
+        await event.reply(f"正在卸载模块 '{module_name}'...")
         
         try:
             success = await self.sdk.module.unload(module_name)
             if success:
-                lines = []
-                lines.append("┌" + "─" * 58 + "┐")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("│" + f"  [成功] 模块 '{module_name}' 已卸载".center(58) + "│")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("└" + "─" * 58 + "┘")
-                await event.reply("\n".join(lines))
+                await event.reply(f"成功: 模块 '{module_name}' 已卸载")
             else:
-                lines = []
-                lines.append("┌" + "─" * 58 + "┐")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("│" + f"  [失败] 模块 '{module_name}' 卸载失败".center(58) + "│")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("└" + "─" * 58 + "┘")
-                await event.reply("\n".join(lines))
+                await event.reply(f"失败: 模块 '{module_name}' 卸载失败")
         except Exception as e:
             self.logger.error(f"卸载模块 {module_name} 时出错: {e}")
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [错误] {str(e)}".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"错误: {str(e)}")
 
     async def _start_adapter(self, event):
         args = event.get_command_args()
         if not args:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 请指定适配器名称".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  用法: /start-adapter <适配器名>".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply("错误: 请指定适配器名称\n用法: /start-adapter <适配器名>")
             return
         
         adapter_name = args[0]
         
         if not self.sdk.adapter.exists(adapter_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [未找到] 适配器 '{adapter_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"未找到: 适配器 '{adapter_name}'")
             return
         
         if not self.sdk.adapter.is_enabled(adapter_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [已禁用] 适配器 '{adapter_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  请先启用适配器".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"已禁用: 适配器 '{adapter_name}'\n请先启用适配器")
             return
         
-        lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + f"  正在启动适配器 '{adapter_name}'...".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
-        await event.reply("\n".join(lines))
+        await event.reply(f"正在启动适配器 '{adapter_name}'...")
         
         try:
             await self.sdk.adapter.startup([adapter_name])
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [成功] 适配器 '{adapter_name}' 已启动".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"成功: 适配器 '{adapter_name}' 已启动")
         except Exception as e:
             self.logger.error(f"启动适配器 {adapter_name} 时出错: {e}")
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [错误] {str(e)}".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"错误: {str(e)}")
 
     async def _stop_adapter(self, event):
         args = event.get_command_args()
         if not args:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 请指定适配器名称".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  用法: /stop-adapter <适配器名>".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply("错误: 请指定适配器名称\n用法: /stop-adapter <适配器名>")
             return
         
         adapter_name = args[0]
         
         if not self.sdk.adapter.exists(adapter_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [未找到] 适配器 '{adapter_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"未找到: 适配器 '{adapter_name}'")
             return
         
-        lines = []
-        lines.append("┌" + "─" * 58 + "┐")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("│" + f"  正在停止适配器 '{adapter_name}'...".center(58) + "│")
-        lines.append("│" + " " * 58 + "│")
-        lines.append("└" + "─" * 58 + "┘")
-        await event.reply("\n".join(lines))
+        await event.reply(f"正在停止适配器 '{adapter_name}'...")
         
         try:
             # 获取适配器实例并调用 shutdown
             adapter_instance = self.sdk.adapter.get(adapter_name)
             if adapter_instance:
                 await adapter_instance.shutdown()
-                lines = []
-                lines.append("┌" + "─" * 58 + "┐")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("│" + f"  [成功] 适配器 '{adapter_name}' 已停止".center(58) + "│")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("└" + "─" * 58 + "┘")
-                await event.reply("\n".join(lines))
+                await event.reply(f"成功: 适配器 '{adapter_name}' 已停止")
             else:
-                lines = []
-                lines.append("┌" + "─" * 58 + "┐")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("│" + f"  [未运行] 适配器 '{adapter_name}'".center(58) + "│")
-                lines.append("│" + " " * 58 + "│")
-                lines.append("└" + "─" * 58 + "┘")
-                await event.reply("\n".join(lines))
+                await event.reply(f"未运行: 适配器 '{adapter_name}'")
         except Exception as e:
             self.logger.error(f"停止适配器 {adapter_name} 时出错: {e}")
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [错误] {str(e)}".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"错误: {str(e)}")
 
     async def _enable_adapter(self, event):
         args = event.get_command_args()
         if not args:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 请指定适配器名称".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  用法: /enable-adapter <适配器名>".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply("错误: 请指定适配器名称\n用法: /enable-adapter <适配器名>")
             return
         
         adapter_name = args[0]
         
         if not self.sdk.adapter.exists(adapter_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [未找到] 适配器 '{adapter_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"未找到: 适配器 '{adapter_name}'")
             return
         
         if self.sdk.adapter.is_enabled(adapter_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [已启用] 适配器 '{adapter_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"已启用: 适配器 '{adapter_name}'")
             return
         
         success = self.sdk.adapter.enable(adapter_name)
         if success:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [成功] 适配器 '{adapter_name}' 已启用".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  使用 /start-adapter 启动它".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"成功: 适配器 '{adapter_name}' 已启用\n使用 /start-adapter 启动它")
         else:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [失败] 启用适配器 '{adapter_name}' 失败".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"失败: 启用适配器 '{adapter_name}' 失败")
 
     async def _disable_adapter(self, event):
         args = event.get_command_args()
         if not args:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  [错误] 请指定适配器名称".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + "  用法: /disable-adapter <适配器名>".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply("错误: 请指定适配器名称\n用法: /disable-adapter <适配器名>")
             return
         
         adapter_name = args[0]
         
         if not self.sdk.adapter.exists(adapter_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [未找到] 适配器 '{adapter_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"未找到: 适配器 '{adapter_name}'")
             return
         
         if not self.sdk.adapter.is_enabled(adapter_name):
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [已禁用] 适配器 '{adapter_name}'".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"已禁用: 适配器 '{adapter_name}'")
             return
         
         success = self.sdk.adapter.disable(adapter_name)
         if success:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [成功] 适配器 '{adapter_name}' 已禁用".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"成功: 适配器 '{adapter_name}' 已禁用")
         else:
-            lines = []
-            lines.append("┌" + "─" * 58 + "┐")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("│" + f"  [失败] 禁用适配器 '{adapter_name}' 失败".center(58) + "│")
-            lines.append("│" + " " * 58 + "│")
-            lines.append("└" + "─" * 58 + "┘")
-            await event.reply("\n".join(lines))
+            await event.reply(f"失败: 禁用适配器 '{adapter_name}' 失败")
